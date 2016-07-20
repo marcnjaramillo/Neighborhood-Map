@@ -41,6 +41,8 @@ var locations = [
 function ViewModel() {
   var self = this;
 
+
+//Create the observables for the data that will be used for the project
   function locInfo(data) {
     self.name = ko.observable(data.name);
     self.lat = ko.observable(data.lat);
@@ -49,9 +51,10 @@ function ViewModel() {
       return self.lat() + self.lng();
     });
   }
-
+//Create the observableArray for the locations
   self.allLocs = ko.observableArray(locations);
-
+//Create a forEach function that will create markers, add them to the map,
+//animate, and the infowindows for each location
   self.allLocs().forEach(function (location) {
     var defaultIcon = makeMarkerIcon('0091ff');
     var highlightedIcon = makeMarkerIcon('FFFF24');
@@ -71,7 +74,8 @@ function ViewModel() {
               });
 
     location.marker.addListener('click', toggleBounce);
-
+  //This is from the Google Maps API course. I wanted to differentiate between
+  //visible markers and the one that is selected
     function makeMarkerIcon(markerColor) {
       var markerImage = new google.maps.MarkerImage(
         'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
@@ -82,7 +86,7 @@ function ViewModel() {
         new google.maps.Size(21,34));
       return markerImage;
     }
-
+  //Bounce the marker that is selected
     function toggleBounce() {
       if (location.marker.getAnimation() !== null) {
         location.marker.setAnimation(null);
@@ -94,13 +98,13 @@ function ViewModel() {
         }, 2000);
       }
     }
-
-    google.maps.event.addListener(location.marker, 'click', function () { 
+  //Listen for a click event and create a new infowindow
+    google.maps.event.addListener(location.marker, 'click', function () {
             if (!infowindow) {
                 infowindow = new google.maps.InfoWindow();
             }
 
-
+            //Wikipedia API
             var content;
             var locNames = location.name;
             var locURL = location.url;
@@ -112,6 +116,7 @@ function ViewModel() {
             }, 5000);
 
             self.apiTimeout;
+
             $.ajax({
                 url: wikiUrl,
                 dataType: "jsonp",
@@ -143,7 +148,7 @@ function ViewModel() {
 
         });
   });
-
+ //Trigger the same marker events when the corresponding list item is clicked
   self.locs = function (location, marker) {
     google.maps.event.trigger(location.marker, 'click');
   };

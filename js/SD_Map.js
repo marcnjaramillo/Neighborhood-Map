@@ -38,6 +38,15 @@ var locations = [
   }
 ];
 
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 32.8245525, lng: -117.0951635},
+    zoom: 10,
+    mapTypeControl: false
+  });
+ko.applyBindings( new ViewModel());
+}
+
 function ViewModel() {
   var self = this;
 
@@ -130,7 +139,7 @@ function ViewModel() {
                             var url = 'http://en.wikipedia.org/wiki/' + articleStr;
                             content = '<div class="info">' + '<h3 class="text-center" id="infoTitle">' + locNames + '</h3>' +
                             //Create a link to the related Wikipedia page
-                            '<p>' + response[2] + '<a href="' + url + '" target="_blank">' + "Wikipedia" + '</a>' + '</p>' +
+                            '<p>' + response[2] + ' <a href="' + url + '" target="_blank">' + "Wikipedia" + '</a>' + '</p>' +
                             //Create link to the location website
                             '<a href="' + locUrl + '" target="_blank">' + locNames + " Homepage" + '</a>' + '</div>';
                             infowindow.setContent(content);
@@ -174,12 +183,3 @@ function ViewModel() {
     });
   });
 };
-
-function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 32.8245525, lng: -117.0951635},
-    zoom: 10,
-    mapTypeControl: false
-  });
-ko.applyBindings( new ViewModel());
-}

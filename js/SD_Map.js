@@ -107,7 +107,7 @@ function ViewModel() {
             //Wikipedia API
             var content;
             var locNames = location.name;
-            var locURL = location.url;
+            var locUrl = location.url;
             var urlNames = encodeURI(location.name);
             var wikiUrl = "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=" + urlNames + "&limit=1&redirects=return&format=json";
 
@@ -128,11 +128,16 @@ function ViewModel() {
                         for (var i = 0; i < articleList.length; i++) {
                             var articleStr = articleList[i];
                             var url = 'http://en.wikipedia.org/wiki/' + articleStr;
-                            content = '<div class="info">' + '<h3 class="text-center" id="infoTitle">' + locNames + '</h3>' + '<p>' + response[2] + '</p>' + '<a href="' + locURL + '" target="_blank">' + locURL + '</a>' + '</div>';
+                            content = '<div class="info">' + '<h3 class="text-center" id="infoTitle">' + locNames + '</h3>' +
+                            //Create a link to the related Wikipedia page
+                            '<p>' + response[2] + '<a href="' + url + '" target="_blank">' + "Wikipedia" + '</a>' + '</p>' +
+                            //Create link to the location website
+                            '<a href="' + locUrl + '" target="_blank">' + locNames + " Homepage" + '</a>' + '</div>';
                             infowindow.setContent(content);
                         }
                     } else {
-                        content = '<div class="info">' + '<h3 class="text-center" id="infoTitle">' + locNames + '</h3>' + '<p>' + "Sorry, No Articles Found on Wikipedia" + '</p>' + '</div>';
+                        content = '<div class="info">' + '<h3 class="text-center" id="infoTitle">' + locNames +
+                        '</h3>' + '<p>' + "Sorry, No Articles Found on Wikipedia" + '</p>' + '</div>';
                         infowindow.setContent(content);
                     }
                     infowindow.open(map, location.marker);
@@ -141,7 +146,8 @@ function ViewModel() {
                     }, 9000);
                 },
                 error: (function () {
-                    content = '<div class="info">' + '<h3 class="text-center" id="infoTitle">' + locNames + '</h3>' + '<p>' + "Failed to reach Wikipedia Servers, please try again" + '</p>' + '</div>';
+                    content = '<div class="info">' + '<h3 class="text-center" id="infoTitle">' + locNames +
+                    '</h3>' + '<p>' + "Failed to reach Wikipedia Servers, please try again" + '</p>' + '</div>';
                     infowindow.setContent(content);
                 })
             });

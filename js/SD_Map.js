@@ -47,9 +47,16 @@ function initMap() {
 ko.applyBindings( new ViewModel());
 }
 
+function openNav() {
+  document.getElementById("mySidenav").style.width = "362px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+
 function ViewModel() {
   var self = this;
-
 
 //Create the observables for the data that will be used for the project
   function locInfo(data) {
@@ -105,6 +112,7 @@ function ViewModel() {
         setTimeout(function () {
           location.marker.setAnimation(null);
         }, 2000);
+        closeNav();
       }
     }
   //Listen for a click event and create a new infowindow

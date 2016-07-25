@@ -48,7 +48,12 @@ ko.applyBindings( new ViewModel());
 }
 
 function openNav() {
-  document.getElementById("mySidenav").style.width = "362px";
+  if(screen.width <= 700) {
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+  else {
+    document.getElementById("mySidenav").style.width = "362px";
+  }
 }
 
 function closeNav() {

@@ -47,7 +47,9 @@ function initMap() {
 ko.applyBindings( new ViewModel());
 }
 
+//These functions control the side panel
 function openNav() {
+//This sets the width of the side panel depending on the width of the screen
   if(screen.width <= 700) {
     document.getElementById("mySidenav").style.width = "250px";
   }

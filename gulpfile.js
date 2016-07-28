@@ -28,7 +28,7 @@ gulp.task('compress', function (cb) {
 });
 
 gulp.task('minify', function() {
-  return gulp.src('neighborhood-map.min.html')
+  return gulp.src('neighborhood-map.html')
     .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(gulp.dest('dist'))
 });

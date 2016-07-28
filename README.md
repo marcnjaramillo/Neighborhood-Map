@@ -3,7 +3,7 @@
 This is the Neighborhood Map project. This project consists of several parts:
 * Use Google Maps API and create markers and infowindows for various locations
 * Use third-party API(s) to add functionality
-* Use `Knockout` to handle list, filter, and other changeable information
+* Use `Knockout` to handle lists, filters, and other changeable information
 
 ___
 
@@ -50,11 +50,11 @@ ___
 
 This project required the use of `Knockout`. This is a JavaScript library that
 allows for information management to be handled more easily. For example,
-this project creates an array of locations (the Model) and these locations are
-tracked using `ko-observables` within the View Model. The View Model is the
+this project creates an array of locations (the __Model__) and these locations are
+tracked using `ko-observables` within the __View Model__. The View Model is the
 bridge between the information that is contained within the Model and the View -
 which is what users interact with - and prevents the Model from being directly
-accessed by the user. As the users interact with the View, the View Model
+accessed by the user. As the users interact with the __View__, the View Model
 updates as necessary while the information in the Model remains intact.
 
 ###Running the application
@@ -65,10 +65,10 @@ The user can zoom and scroll on the map. Markers will change color when the user
 mouses over them. When the user clicks a marker, this will display a window with
 information about the location. The user can also navigate to Wikipedia and
 the location's website from the infowindow. In the top left corner of the
-application is a menu icon. Clicking it will open a side panel. Users can
-alternatively display infowindows by clicking on the list items. Users can filter
-locations by using the search box. As the user types, only matching locations
-will display in the list.
+application is a menu icon. Clicking it will open a side panel with a list of
+locations. Users can display infowindows by clicking on the list items.
+Users can filter locations by using the search box. As the user types, only
+matching locations will display in the list.
 
 ___
 
@@ -100,6 +100,7 @@ The plugins used can be found in `gulpfile.js`. They are described below:
 * __gulp-clean-css__ - minifies by removing whitespace in CSS file
 * __gulp-uglify__ - minifies by removing whitespace and comments in JS file
 * __pump__ - needed for *gulp-uglify* to work
+* __htmlmin__ - minifies HTML by removing whitespace
 
 These plugins operate by defining a task and then calling a function that will
 carry out the necessary steps to accomplish the goals stated above.

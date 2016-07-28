@@ -77,7 +77,7 @@ function ViewModel() {
 //Create the observableArray for the locations
   self.allLocs = ko.observableArray(locations);
 //Create a forEach function that will create markers, add them to the map,
-//animate, and the infowindows for each location
+//animate them, and create the infowindow for each location
   self.allLocs().forEach(function (location) {
     var defaultIcon = makeMarkerIcon('0091ff');
     var highlightedIcon = makeMarkerIcon('FFFF24');
@@ -97,12 +97,12 @@ function ViewModel() {
               });
 
     location.marker.addListener('click', toggleBounce);
-  //This is from the Google Maps API course. I wanted to differentiate between
+  //This is from the Google Maps API course. I used this to differentiate between
   //visible markers and the one that is selected
     function makeMarkerIcon(markerColor) {
       var markerImage = new google.maps.MarkerImage(
-        'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
-        '|40|_|%E2%80%A2',
+        'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+
+        markerColor + '|40|_|%E2%80%A2',
         new google.maps.Size(21, 34),
         new google.maps.Point(0, 0),
         new google.maps.Point(10, 34),
@@ -133,7 +133,9 @@ function ViewModel() {
             var locNames = location.name;
             var locUrl = location.url;
             var urlNames = encodeURI(location.name);
-            var wikiUrl = "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=" + urlNames + "&limit=1&redirects=return&format=json";
+            var wikiUrl =
+            "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search="
+            + urlNames + "&limit=1&redirects=return&format=json";
 
             self.apiTimeout = setTimeout(function () {
                 alert('ERROR: Failed to load data');
@@ -152,16 +154,22 @@ function ViewModel() {
                         for (var i = 0; i < articleList.length; i++) {
                             var articleStr = articleList[i];
                             var url = 'http://en.wikipedia.org/wiki/' + articleStr;
-                            content = '<div class="info">' + '<h3 class="text-center" id="infoTitle">' + locNames + '</h3>' +
+                            content = '<div class="info">' +
+                            '<h3 class="text-center" id="infoTitle">' + locNames +
+                            '</h3>' +
                             //Create a link to the related Wikipedia page
-                            '<p>' + response[2] + ' <a href="' + url + '" target="_blank">' + "Wikipedia" + '</a>' + '</p>' +
+                            '<p>' + response[2] + ' <a href="' + url +
+                            '" target="_blank">' + "Wikipedia" + '</a>' + '</p>' +
                             //Create link to the location website
-                            '<a href="' + locUrl + '" target="_blank">' + locNames + " Homepage" + '</a>' + '</div>';
+                            '<a href="' + locUrl + '" target="_blank">' +
+                            locNames + " Homepage" + '</a>' + '</div>';
                             infowindow.setContent(content);
                         }
                     } else {
-                        content = '<div class="info">' + '<h3 class="text-center" id="infoTitle">' + locNames +
-                        '</h3>' + '<p>' + "Sorry, No Articles Found on Wikipedia" + '</p>' + '</div>';
+                        content = '<div class="info">' +
+                        '<h3 class="text-center" id="infoTitle">' + locNames +
+                        '</h3>' + '<p>' + "Sorry, No Articles Found on Wikipedia"
+                        + '</p>' + '</div>';
                         infowindow.setContent(content);
                     }
                     infowindow.open(map, location.marker);
@@ -170,8 +178,11 @@ function ViewModel() {
                     }, 9000);
                 },
                 error: (function () {
-                    content = '<div class="info">' + '<h3 class="text-center" id="infoTitle">' + locNames +
-                    '</h3>' + '<p>' + "Failed to reach Wikipedia Servers, please try again" + '</p>' + '</div>';
+                    content = '<div class="info">' +
+                    '<h3 class="text-center" id="infoTitle">' + locNames +
+                    '</h3>' + '<p>' +
+                    "Failed to reach Wikipedia Servers, please try again"
+                    + '</p>' + '</div>';
                     infowindow.setContent(content);
                 })
             });

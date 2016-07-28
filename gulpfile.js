@@ -3,6 +3,7 @@ var jshint = require('gulp-jshint');
 var cleanCSS = require('gulp-clean-css');
 var uglify = require('gulp-uglify');
 var pump = require('pump');
+var htmlmin = require('gulp-htmlmin')
 
 gulp.task('jshint', function() {
   gulp.src('./src/scripts/*.js')
@@ -11,17 +12,23 @@ gulp.task('jshint', function() {
 });
 
 gulp.task('minify-css', function() {
-  return gulp.src('css/style.css')
+  return gulp.src('css/src/SD-Map.css')
     .pipe(cleanCSS({compatibility: 'ie8'}))
-    .pipe(gulp.dest('css/style.min.css'));
+    .pipe(gulp.dest('css/dist/SD-Map.min.css'));
 });
 
 gulp.task('compress', function (cb) {
   pump([
-        gulp.src('views/js/src/main.js'),
+        gulp.src('js/src/SD-Map.js'),
         uglify(),
-        gulp.dest('views/js/dist')
+        gulp.dest('js/dist/SD-Map.min.js')
     ],
     cb
   );
+});
+
+gulp.task('minify', function() {
+  return gulp.src('src/neighborhood-map.min.html')
+    .pipe(htmlmin({collapseWhitespace: true}))
+    .pipe(gulp.dest('dist'))
 });

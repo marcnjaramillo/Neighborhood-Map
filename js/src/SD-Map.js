@@ -41,7 +41,7 @@ var locations = [
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 32.8245525, lng: -117.0951635},
-    zoom: 10,
+    zoom: 13,
     mapTypeControl: false
   });
 ko.applyBindings( new ViewModel());
@@ -67,7 +67,7 @@ function closeNav() {
 
 function ViewModel() {
   var self = this;
-
+  var bounds = new google.maps.LatLngBounds();
 //Create the observables for the data that will be used for the project
   function locInfo(data) {
     self.name = ko.observable(data.name);
@@ -100,6 +100,7 @@ function ViewModel() {
               });
 
     location.marker.addListener('click', toggleBounce);
+    bounds.extend(location.marker.position);
   //This is from the Google Maps API course. I used this to differentiate between
   //visible markers and the one that is selected
     function makeMarkerIcon(markerColor) {
@@ -176,9 +177,6 @@ function ViewModel() {
                         infowindow.setContent(content);
                     }
                     infowindow.open(map, location.marker);
-                    setTimeout(function () {
-                        infowindow.close();
-                    }, 9000);
                 },
                 error: (function () {
                     content = '<div class="info">' +
@@ -189,9 +187,9 @@ function ViewModel() {
                     infowindow.setContent(content);
                 })
             });
-
         });
   });
+  map.fitBounds(bounds);
  //Trigger the same marker events when the corresponding list item is clicked
   self.locs = function (location, marker) {
     google.maps.event.trigger(location.marker, 'click');

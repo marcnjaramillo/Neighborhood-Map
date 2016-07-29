@@ -139,7 +139,7 @@ function ViewModel() {
 
             self.apiTimeout = setTimeout(function () {
                 alert('ERROR: Failed to load data');
-            }, 5000);
+            }, 2000);
 
             self.apiTimeout;
 
@@ -208,4 +208,8 @@ function ViewModel() {
       return filter;
     });
   });
+
+  function myFunc() {
+    window.alert('Unable to load Google Maps. Please try again later.')
+  }
 };

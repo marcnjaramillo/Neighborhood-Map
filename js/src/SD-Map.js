@@ -47,6 +47,9 @@ function initMap() {
 ko.applyBindings( new ViewModel());
 }
 
+function myFunc() {
+  window.alert('Unable to load Google Maps. Please try again later.')
+}
 //These functions control the side panel
 function openNav() {
 //This sets the width of the side panel depending on the width of the screen
@@ -208,8 +211,4 @@ function ViewModel() {
       return filter;
     });
   });
-
-  function myFunc() {
-    window.alert('Unable to load Google Maps. Please try again later.')
-  }
 };
